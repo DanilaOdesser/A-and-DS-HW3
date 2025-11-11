@@ -205,7 +205,10 @@
     //-------------------------------------------------------------------------
 
     function play() { hide('start'); reset();          playing = true;  }
-    function lose() { show('start'); setVisualScore(); playing = false; }
+    function lose() {
+        console.log(`Game Over! Final Score: ${score}, Rows Cleared: ${rows}`);
+        show('start'); setVisualScore(); playing = false;
+    }
 
     function setVisualScore(n)      { vscore = n || score; invalidateScore(); }
     function setScore(n)            { score = n; setVisualScore(n);  }
@@ -302,7 +305,7 @@
 
     function removeLines() {
         var x, y, complete, n = 0;
-        for(y = ny ; y > 0 ; --y) {
+        for(y = ny - 1 ; y >= 0 ; --y) {
             complete = true;
             for(x = 0 ; x < nx ; ++x) {
                 if (!getBlock(x, y)) {
