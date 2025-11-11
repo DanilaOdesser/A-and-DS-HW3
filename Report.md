@@ -15,11 +15,6 @@
 - **[Lines 104-109](./heuristic_agent.js#L104-L109)**: The original piece object was being mutated by setting `piece.dir = dir`, causing all moves in the list to reference the same mutated object. Instead, create a new `pieceCopy` object with the correct direction for each move.
 
 - **[Lines 112-115](./heuristic_agent.js#L112-L115)**: Validation should check that the piece placement is within board bounds and does not overlap with existing blocks before adding it to the moves list.
-
-### game.js
-
-- **[Line 308](./game.js#L308)**: Incorrect loop indexing for `y` coordinate when iterating through rows during line removal.
-
 ---
 let's benchmark code after all fixes: 
 heuristic_agent.js 
@@ -91,4 +86,14 @@ AND ADDING MAXCOLUMNHEIGHT PARAMETER:
 
 ---
 
-## 
+## Beam search
+
+Out of probabilistic algorithms, beam search is the most suitable for this task. 
+It evaluates all possible placements of the current piece, then simulates placing the next piece on each resulting board state, scoring each two-move sequence and selecting the current move that leads to the best future outcome.
+Let's see how beam search performs on this task: 
+
+`game.js:209 Game Over! Final Score: 40890, Rows Cleared: 314`
+`game.js:209 Game Over! Final Score: 25200, Rows Cleared: 193`
+
+I couldn't manage to do 10 runs because its too long :) 
+But clearly beam search overperforms greedy heuristic search.
