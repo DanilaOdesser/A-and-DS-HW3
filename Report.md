@@ -97,3 +97,36 @@ Let's see how beam search performs on this task:
 
 I couldn't manage to do 10 runs because its too long :) 
 But clearly beam search overperforms greedy heuristic search.
+---
+## OPTIMIZING THE WEIGHTS
+I realised that the weights are too high and the game is not playing well. 
+I lowered them and made more balanced:
+
+*     return -0.7 * aggregateHeight + 
+        2 * Math.pow(2, completeLines - 1) - 0.2 * holes -
+        0.1 * bumpiness - 0.03 * maxColumnHeight;
+
+and got the following results for heuristic search:
+
+`game.js:209 Game Over! Final Score: 46990, Rows Cleared: 337`
+`game.js:209 Game Over! Final Score: 32090, Rows Cleared: 236`
+`game.js:209 Game Over! Final Score: 6530, Rows Cleared: 46`
+`game.js:209 Game Over! Final Score: 33110, Rows Cleared: 239`
+`game.js:209 Game Over! Final Score: 12910, Rows Cleared: 92`
+
+**Statistics:**
+- **Mean Score**: 26,326
+- **Mean Rows Cleared**: 190
+
+and for beam search:
+
+`game.js:209 Game Over! Final Score: 160790, Rows Cleared: 1158`
+`game.js:209 Game Over! Final Score: 63470, Rows Cleared: 442`
+`game.js:209 Game Over! Final Score: 177340, Rows Cleared: 1293`
+`game.js:209 Game Over! Final Score: 30360, Rows Cleared: 211`
+`game.js:209 Game Over! Final Score: 22000, Rows Cleared: 150`
+`game.js:209 Game Over! Final Score: 259290, Rows Cleared: 1889`
+
+**Statistics:**
+- **Mean Score**: 118,875
+- **Mean Rows Cleared**: 857
